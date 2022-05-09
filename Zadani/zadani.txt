@@ -1,0 +1,23 @@
+Připravte program v libovolném programovacím jazyce, který bude zpracovávat vstupní CSV soubory se záznamy o
+zobrazení a kliknutí na reklamní inzeráty. V datech bude čistit duplicitní kliknutí a výstup bude zapisovat do
+tabulky v MySQL databázi.
+
+- součástí příkladu jsou dva vstupní CSV soubory (v příloze e-mailu):
+  - `impressions.csv` - obsahuje záznamy o zobrazeních ("impresích") inzerátů s těmito atributy:
+    - `impressionTime`: čas kdy došlo k impresi
+    - `impressionId`: identifikátor konkrétní imprese, unikátní pro každou impresi
+    - `adId`: unikátní identifikátor inzerátu
+    - `visitorHash`: unikátní identifikátor návštěvníka webu
+  - `clicks.csv` - obsahuje záznamy o kliknutí na inzeráty, obshauje atributy:
+    - `clickTime`: čas kdy došlo ke kliknutí (bude vždy *pozdější* než čas odpovídající imprese)
+    - `impressionId`: identifikátor imprese, pomocí kterého lze klik přiřadit k impresi; imprese je vždy unikátní,
+     ale může k ní být více kliků - popsáno dále u defraudování
+- cílem je napsat v libovolném programovacím jazyce program, který z daných vstupů zapíše data do MySQL databáze
+ běžící v Dockeru do tabulky (přesné schéma tabulky si můžete sami zvolit), nad kterou bude možné zadávat dotazy
+  na počty impresí a kliků u inzerátů po dnech, např:
+  - "kolik impresí měl inzerát s ID X za den Y?"
+  - "kolik bylo celkem kliků v systému za den Y?"
+- při počítání kliků je nutné zajistit tzv. defraudování kliků - odstranění duplicitních kliků od jednoho návštěvníka.
+    Konkrétně chceme započítat pro každý inzerát od stejného návštěvníka vždy jen takový klik, kterému nepředcházel
+     10 minut před ním žádný jiný klik od stejného návštěvníka na stejném inzerátu
+- program stačí když poběží na vašem počítači a MySQL databáze v Dockeru také

@@ -1,0 +1,36 @@
+
+https://docs.docker.com/desktop/mac/install/
+
+https://medium.com/swlh/how-to-connect-to-mysql-docker-from-python-application-on-macos-mojave-32c7834e5afa
+
+1. mysql container
+# download mysql image
+docker pull mysql
+
+# check if pulled right
+docker image ls
+
+# start docker container
+docker run --name=mysql_docker --env="MYSQL_ROOT_PASSWORD=root_password" -p 3306:3306 -d mysql
+
+# check if mysql docker is running properly
+docker ps
+
+
+2. set up mysql Inside Docker
+# access mysql from terminal
+docker exec -it mysql_docker mysql -uroot -proot_password
+
+# create a new user
+CREATE USER 'milan'@'%' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON mysql_docker_db.* to 'milan'@'%';
+exit
+
+next steps are possible, but I'll take care from python
+
+# create a database
+CREATE DATABASE mysql_docker_db;
+
+# create a table inside the new database
+use mysql_docker_db;
+CREATE TABLE result_tb (resultId VARCHAR(255) NOT NULL PRIMARY KEY, date VARCHAR(10) NOT NULL, adId INT NOT NULL, clicksCount INT, impressionsCount INT);
