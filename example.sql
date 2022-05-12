@@ -11,4 +11,4 @@ SELECT SUM(clicksCount) AS 'SUM_clicks' FROM result_tb WHERE date = '2021-04-21'
 
 DELETE FROM result_tb;
 DROP TABLE result_tb;
-DROP DATABASE seznam_vr_db;
+DROP DATABASE mysql_docker_db;
